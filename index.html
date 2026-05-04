@@ -199,7 +199,7 @@
     font-weight: 500;
   }
 
-  /* === 結尾頁（金句） === */
+  /* === 結尾頁（金句 · 畫框外） === */
   .paper.finale {
     display: flex;
     flex-direction: column;
@@ -207,31 +207,28 @@
     justify-content: center;
     text-align: center;
     padding: 60px 48px;
+    /* 畫框外：拿掉信紙的紙張感 */
+    background: transparent;
+    box-shadow: none;
+    border-radius: 0;
   }
-  .paper.finale::before { display: none; }
+  .paper.finale::before,
+  .paper.finale::after { display: none; }
   .finale-flower {
     width: 64px; height: 64px;
-    margin-bottom: 40px;
-    opacity: 0.9;
+    margin-bottom: 48px;
+    opacity: 0.85;
   }
   .finale .closing {
-    font-size: 36px;
+    font-size: 32px;
     font-weight: 500;
     color: var(--rose-deep);
     letter-spacing: 0.1em;
-    line-height: 1.7;
-    margin-bottom: 48px;
+    line-height: 1.9;
   }
-  .finale .signature {
-    font-size: 16px;
-    color: var(--ink-soft);
-    letter-spacing: 0.2em;
-    margin-bottom: 6px;
-  }
-  .finale .blessing {
-    font-size: 14px;
-    color: var(--rose);
-    letter-spacing: 0.25em;
+  .finale .closing .second-line {
+    display: block;
+    margin-top: 1.4em;
   }
 
   /* 信件特殊樣式（致媽媽） */
@@ -361,8 +358,8 @@
     .cover h1 { font-size: 40px; }
     .cover .cover-sub { font-size: 16px; }
     .cover-flower { width: 76px; height: 76px; }
-    .finale .closing { font-size: 26px; }
-    .finale-flower { width: 52px; height: 52px; margin-bottom: 32px; }
+    .finale .closing { font-size: 24px; line-height: 1.85; }
+    .finale-flower { width: 52px; height: 52px; margin-bottom: 36px; }
     .hint { display: none; }
     .nav { bottom: 20px; gap: 18px; padding: 8px 14px; }
     .nav-btn { font-size: 18px; }
@@ -543,8 +540,10 @@
       <circle cx="32" cy="25" r="2" fill="#C28A85"/>
       <path d="M32 32 L32 56" stroke="#B8C2A8" stroke-width="1.5"/>
     </svg>
-    <p class="closing">沒事，<br>就只是辣味而已。</p>
-    <div class="blessing">母親節快樂 ・ 2026</div>
+    <p class="closing">
+      沒事，就只是辣的問題而已，
+      <span class="second-line">沒有人有錯。</span>
+    </p>
   </section>
 
 </div>
