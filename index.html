@@ -2,7 +2,7 @@
 <html lang="zh-Hant">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <meta name="robots" content="noindex, nofollow">
 <title>辣味的比喻 ｜ 母親節 2026</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -10,348 +10,634 @@
 <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    /* 康乃馨淡色系 */
-    --bg: #FBF6F0;            /* 暖奶白底 */
-    --card: #FFFCF7;          /* 主閱讀區 */
-    --petal: #F5DCDC;         /* 康乃馨花瓣淡粉 */
-    --petal-soft: #FAEAEA;    /* 更淡的粉，引言區用 */
-    --rose: #C28A85;          /* 玫瑰深粉，作 accent */
-    --rose-deep: #9E5F5A;     /* 標題深玫瑰 */
-    --leaf: #B8C2A8;          /* 淡葉綠（康乃馨的葉子） */
-    --ink: #3D332E;           /* 主文字 */
-    --ink-soft: #7A6B62;      /* 次文字 */
-    --rule: #E8D9D2;          /* 分隔線 */
+    --bg-deep:   #EFE5DC;        /* 桌面木紋暖底 */
+    --bg-soft:   #F8F0E8;        /* 信紙周圍光暈 */
+    --paper:     #FBF6EE;        /* 信紙底色 */
+    --paper-edge:#E8DCD0;        /* 信紙邊緣陰影 */
+    --petal:     #F2D2D2;        /* 康乃馨花瓣 */
+    --petal-soft:#FAEAEA;        /* 信紙引述底 */
+    --rose:      #C28A85;        /* 玫瑰 accent */
+    --rose-deep: #9E5F5A;        /* 標題深玫瑰 */
+    --leaf:      #B8C2A8;        /* 葉綠 */
+    --ink:       #3D332E;        /* 主文字 */
+    --ink-soft:  #7A6B62;        /* 次文字 */
+    --rule:      #E8D9D2;        /* 分隔線 */
+    --margin-line:#D9B5B5;       /* 信紙左側邊距線 */
   }
 
-  * { box-sizing: border-box; }
-
-  html, body {
-    margin: 0;
-    padding: 0;
-    background: var(--bg);
-    color: var(--ink);
-    font-family: 'Noto Serif TC', 'Songti TC', 'PingFang TC', serif;
-    font-weight: 400;
-    line-height: 1.9;
-    -webkit-font-smoothing: antialiased;
-  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; overflow: hidden; }
 
   body {
+    font-family: 'Noto Serif TC', 'Songti TC', 'PingFang TC', serif;
+    color: var(--ink);
+    background: var(--bg-deep);
     background-image:
-      radial-gradient(ellipse at top, rgba(245, 220, 220, 0.35) 0%, transparent 60%),
-      radial-gradient(ellipse at bottom, rgba(184, 194, 168, 0.12) 0%, transparent 50%);
-    background-attachment: fixed;
-    min-height: 100vh;
+      radial-gradient(ellipse at center, var(--bg-soft) 0%, var(--bg-deep) 70%);
+    line-height: 1.95;
+    -webkit-font-smoothing: antialiased;
+    user-select: none;
+    touch-action: pan-y;
   }
 
-  .page {
-    max-width: 680px;
-    margin: 0 auto;
-    padding: 80px 28px 120px;
+  /* === 信紙容器（舞台） === */
+  .stage {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    perspective: 1800px;
   }
 
-  /* === Header === */
-  .header {
-    text-align: center;
-    margin-bottom: 72px;
+  /* === 單張信紙 === */
+  .paper {
+    position: absolute;
+    width: min(640px, 90vw);
+    height: min(840px, 88vh);
+    background: var(--paper);
+    background-image:
+      linear-gradient(180deg, rgba(255,255,255,0.4) 0%, transparent 8%, transparent 92%, rgba(0,0,0,0.02) 100%);
+    border-radius: 3px;
+    box-shadow:
+      0 1px 0 rgba(255,255,255,0.6) inset,
+      0 0 0 1px var(--paper-edge),
+      0 8px 24px rgba(120, 80, 70, 0.12),
+      0 24px 60px rgba(120, 80, 70, 0.18);
+    padding: 64px 64px 80px 88px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateX(60px) rotateY(-8deg);
+    transition:
+      opacity 0.5s ease,
+      transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-origin: left center;
+    transform-style: preserve-3d;
   }
 
-  .carnation {
-    display: inline-block;
-    width: 56px;
-    height: 56px;
-    margin-bottom: 24px;
+  /* 信紙左側邊距線（紅色裝訂線感） */
+  .paper::before {
+    content: '';
+    position: absolute;
+    left: 56px;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    background: var(--margin-line);
+    opacity: 0.45;
   }
 
-  .meta {
-    font-size: 13px;
-    letter-spacing: 0.3em;
-    color: var(--rose);
-    text-transform: uppercase;
-    margin-bottom: 18px;
-    font-weight: 500;
+  /* 信紙紋理（極淡） */
+  .paper::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image:
+      radial-gradient(circle at 20% 30%, rgba(194, 138, 133, 0.04) 0%, transparent 40%),
+      radial-gradient(circle at 80% 70%, rgba(184, 194, 168, 0.04) 0%, transparent 40%);
   }
 
-  h1 {
-    font-size: 38px;
-    font-weight: 600;
-    color: var(--rose-deep);
-    margin: 0 0 16px;
-    letter-spacing: 0.05em;
+  .paper.active {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateX(0) rotateY(0deg);
   }
 
-  .subtitle {
-    font-size: 15px;
-    color: var(--ink-soft);
-    font-style: italic;
-    font-weight: 300;
-    letter-spacing: 0.05em;
-    margin: 0;
+  .paper.exit-left {
+    opacity: 0;
+    transform: translateX(-60px) rotateY(8deg);
   }
 
-  .divider {
-    width: 40px;
-    height: 1px;
-    background: var(--rose);
-    margin: 36px auto 0;
-    opacity: 0.5;
-  }
+  /* 滾動條造型 */
+  .paper::-webkit-scrollbar { width: 4px; }
+  .paper::-webkit-scrollbar-thumb { background: var(--petal); border-radius: 2px; }
+  .paper::-webkit-scrollbar-track { background: transparent; }
 
-  /* === Article === */
-  article {
-    background: var(--card);
-    border-radius: 4px;
-    padding: 64px 56px;
-    box-shadow: 0 1px 3px rgba(158, 95, 90, 0.04), 0 8px 32px rgba(158, 95, 90, 0.06);
-  }
-
-  article p {
-    font-size: 17px;
-    line-height: 2;
+  /* === 內文 === */
+  .paper p {
+    font-size: 21px;
+    line-height: 2.1;
     margin: 0 0 1.5em;
     color: var(--ink);
     text-align: justify;
     text-wrap: pretty;
   }
 
-  article p.opening {
-    font-size: 15px;
+  .paper p:last-child { margin-bottom: 0; }
+
+  .paper p.opening {
+    font-size: 18px;
     color: var(--ink-soft);
     font-style: italic;
     text-align: center;
-    margin-bottom: 2.5em;
+    margin-bottom: 2em;
     letter-spacing: 0.03em;
   }
 
-  /* 引言段落（媽媽的話 / 孩子的話） */
-  .quote-block {
+  /* 引述（媽媽憤怒等） */
+  .quote {
     background: var(--petal-soft);
     border-left: 2px solid var(--rose);
-    padding: 24px 28px;
-    margin: 32px 0;
+    padding: 22px 26px;
+    margin: 28px 0;
     border-radius: 0 4px 4px 0;
   }
-
-  .quote-block p {
-    font-size: 16px;
-    margin-bottom: 1em;
-    color: var(--ink);
-  }
-
-  .quote-block p:last-child { margin-bottom: 0; }
-
-  /* 信件區塊（孩子寫給媽媽的話） */
-  .letter {
-    background: linear-gradient(180deg, var(--petal-soft) 0%, var(--card) 100%);
-    border: 1px solid var(--petal);
-    padding: 40px 36px;
-    margin: 40px -16px;
-    border-radius: 6px;
-    position: relative;
-  }
-
-  .letter::before {
-    content: '致媽媽';
-    position: absolute;
-    top: -12px;
-    left: 36px;
-    background: var(--card);
-    color: var(--rose-deep);
-    font-size: 13px;
-    letter-spacing: 0.3em;
-    padding: 0 12px;
-    font-weight: 500;
-  }
-
-  .letter p {
-    font-size: 16px;
+  .quote p {
+    font-size: 19px;
     line-height: 2;
+    margin: 0;
   }
 
-  .letter p:first-of-type {
-    margin-top: 8px;
-  }
-
-  /* 結尾金句 */
-  .closing {
+  /* === 封面（P1） === */
+  .paper.cover {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     text-align: center;
-    font-size: 22px;
-    font-weight: 500;
-    color: var(--rose-deep);
-    margin: 56px 0 0;
-    letter-spacing: 0.08em;
-    line-height: 1.6;
+    padding: 60px 48px;
   }
+  .paper.cover::before { display: none; }
 
-  /* 段間裝飾分隔（場景轉換用） */
-  .ornament {
-    text-align: center;
-    margin: 48px 0;
-    color: var(--rose);
-    opacity: 0.5;
-    letter-spacing: 0.5em;
+  .cover-flower { width: 96px; height: 96px; margin-bottom: 28px; }
+  .cover-meta {
     font-size: 14px;
+    letter-spacing: 0.4em;
+    color: var(--rose);
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    font-weight: 500;
   }
-
-  /* === Footer === */
-  .footer {
-    text-align: center;
-    margin-top: 72px;
+  .cover h1 {
+    font-size: 56px;
+    font-weight: 600;
+    color: var(--rose-deep);
+    letter-spacing: 0.08em;
+    margin-bottom: 22px;
+  }
+  .cover .cover-sub {
+    font-size: 18px;
     color: var(--ink-soft);
-    font-size: 13px;
-    letter-spacing: 0.15em;
-    line-height: 2;
+    font-style: italic;
+    letter-spacing: 0.08em;
+    margin-bottom: 36px;
+  }
+  .cover-divider {
+    width: 50px;
+    height: 1px;
+    background: var(--rose);
+    opacity: 0.5;
+    margin-bottom: 24px;
+  }
+  .cover-author {
+    font-size: 14px;
+    color: var(--ink-soft);
+    letter-spacing: 0.25em;
+    font-weight: 500;
   }
 
-  .footer .signature {
+  /* === 結尾頁（金句） === */
+  .paper.finale {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 60px 48px;
+  }
+  .paper.finale::before { display: none; }
+  .finale-flower {
+    width: 64px; height: 64px;
+    margin-bottom: 40px;
+    opacity: 0.9;
+  }
+  .finale .closing {
+    font-size: 36px;
+    font-weight: 500;
+    color: var(--rose-deep);
+    letter-spacing: 0.1em;
+    line-height: 1.7;
+    margin-bottom: 48px;
+  }
+  .finale .signature {
+    font-size: 16px;
+    color: var(--ink-soft);
+    letter-spacing: 0.2em;
+    margin-bottom: 6px;
+  }
+  .finale .blessing {
+    font-size: 14px;
+    color: var(--rose);
+    letter-spacing: 0.25em;
+  }
+
+  /* 信件特殊樣式（致媽媽） */
+  .paper.letter-page {
+    padding-top: 80px;
+  }
+  .letter-tag {
+    position: absolute;
+    top: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 13px;
+    letter-spacing: 0.4em;
     color: var(--rose-deep);
     font-weight: 500;
-    margin-bottom: 8px;
+  }
+  .letter-tag::before, .letter-tag::after {
+    content: '';
+    display: inline-block;
+    width: 24px;
+    height: 1px;
+    background: var(--rose);
+    vertical-align: middle;
+    margin: 0 16px;
+    opacity: 0.5;
   }
 
-  .footer .heart {
-    color: var(--rose);
-    margin: 0 6px;
+  /* === 翻頁控制 === */
+  .nav {
+    position: fixed;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    background: rgba(251, 246, 238, 0.9);
+    backdrop-filter: blur(8px);
+    padding: 10px 18px;
+    border-radius: 999px;
+    box-shadow: 0 4px 16px rgba(120, 80, 70, 0.12);
+    z-index: 100;
+  }
+
+  .nav-btn {
+    background: none;
+    border: none;
+    color: var(--rose-deep);
+    font-size: 20px;
+    cursor: pointer;
+    padding: 4px 8px;
+    line-height: 1;
+    transition: opacity 0.2s;
+    font-family: serif;
+  }
+  .nav-btn:hover { opacity: 0.6; }
+  .nav-btn:disabled { opacity: 0.25; cursor: default; }
+
+  .page-indicator {
+    font-size: 14px;
+    color: var(--ink-soft);
+    letter-spacing: 0.15em;
+    min-width: 56px;
+    text-align: center;
+  }
+
+  /* 兩側點擊區 */
+  .click-zone {
+    position: fixed;
+    top: 0;
+    width: 25%;
+    height: 100%;
+    z-index: 50;
+    cursor: pointer;
+  }
+  .click-zone.left { left: 0; }
+  .click-zone.right { right: 0; }
+  .click-zone:hover::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: rgba(194, 138, 133, 0.15);
+    transition: opacity 0.2s;
+  }
+  .click-zone.left:hover::before { left: 24px; }
+  .click-zone.right:hover::before { right: 24px; }
+
+  /* 鍵盤提示 */
+  .hint {
+    position: fixed;
+    top: 24px;
+    right: 28px;
+    font-size: 12px;
+    color: var(--ink-soft);
+    letter-spacing: 0.15em;
+    opacity: 0.6;
+    pointer-events: none;
+    z-index: 100;
+  }
+  .hint kbd {
+    display: inline-block;
+    padding: 2px 6px;
+    background: rgba(255,255,255,0.7);
+    border: 1px solid var(--rule);
+    border-radius: 3px;
+    font-family: inherit;
+    font-size: 11px;
+    margin: 0 2px;
   }
 
   /* === Mobile === */
   @media (max-width: 640px) {
-    .page { padding: 48px 16px 80px; }
-    article { padding: 40px 24px; border-radius: 0; }
-    h1 { font-size: 30px; }
-    article p { font-size: 16px; line-height: 1.95; }
-    .letter { padding: 32px 24px; margin: 32px -8px; }
-    .letter p { font-size: 15px; }
-    .closing { font-size: 19px; }
-    .quote-block { padding: 20px 22px; }
+    .paper {
+      width: 94vw;
+      height: 84vh;
+      padding: 44px 28px 60px 50px;
+    }
+    .paper::before { left: 30px; }
+    .paper p { font-size: 18px; line-height: 2; }
+    .paper p.opening { font-size: 16px; }
+    .quote { padding: 18px 20px; margin: 22px 0; }
+    .quote p { font-size: 17px; }
+    .cover h1 { font-size: 40px; }
+    .cover .cover-sub { font-size: 16px; }
+    .cover-flower { width: 76px; height: 76px; }
+    .finale .closing { font-size: 26px; }
+    .finale-flower { width: 52px; height: 52px; margin-bottom: 32px; }
+    .hint { display: none; }
+    .nav { bottom: 20px; gap: 18px; padding: 8px 14px; }
+    .nav-btn { font-size: 18px; }
+    .page-indicator { font-size: 13px; }
+    .click-zone { width: 22%; }
+    .letter-tag { top: 28px; font-size: 12px; }
+    .paper.letter-page { padding-top: 64px; }
+  }
+
+  /* 印刷樣式（有人想列印） */
+  @media print {
+    body { background: white; overflow: visible; }
+    .stage { position: static; display: block; perspective: none; }
+    .paper {
+      position: static;
+      width: 100%;
+      height: auto;
+      opacity: 1;
+      pointer-events: auto;
+      transform: none;
+      box-shadow: none;
+      page-break-after: always;
+      margin-bottom: 24px;
+    }
+    .paper::before, .paper::after { display: none; }
+    .nav, .click-zone, .hint { display: none; }
   }
 </style>
 </head>
 <body>
 
-<div class="page">
+<div class="hint">
+  <kbd>←</kbd> <kbd>→</kbd> 翻頁
+</div>
 
-  <header class="header">
-    <!-- 康乃馨 SVG（簡筆，淡淡的） -->
-    <svg class="carnation" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
-      <!-- 葉子 -->
-      <path d="M32 50 Q24 44 22 36" stroke="#B8C2A8" stroke-width="1.5" fill="none" stroke-linecap="round"/>
-      <ellipse cx="22" cy="40" rx="6" ry="2.5" fill="#B8C2A8" opacity="0.6" transform="rotate(-30 22 40)"/>
-      <!-- 花瓣層 -->
-      <g opacity="0.85">
-        <path d="M32 14 Q22 18 22 26 Q22 32 32 32 Q42 32 42 26 Q42 18 32 14 Z" fill="#F5DCDC"/>
-        <path d="M32 16 Q24 20 24 26 Q24 30 32 30 Q40 30 40 26 Q40 20 32 16 Z" fill="#F0CECE"/>
-        <path d="M32 18 Q26 22 26 26 Q26 28 32 28 Q38 28 38 26 Q38 22 32 18 Z" fill="#E8B8B8"/>
-        <!-- 花瓣鋸齒邊（康乃馨特徵） -->
-        <path d="M22 22 L24 20 L26 22 L28 19 L30 22 L32 18 L34 22 L36 19 L38 22 L40 20 L42 22"
-              stroke="#E8B8B8" stroke-width="0.8" fill="none" opacity="0.7"/>
+<div class="click-zone left" data-dir="prev"></div>
+<div class="click-zone right" data-dir="next"></div>
+
+<div class="stage" id="stage">
+
+  <!-- ========== P1 封面 ========== -->
+  <section class="paper cover" data-page="1">
+    <svg class="cover-flower" viewBox="0 0 96 96" xmlns="http://www.w3.org/2000/svg">
+      <path d="M48 70 Q36 62 32 50" stroke="#B8C2A8" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <ellipse cx="32" cy="56" rx="9" ry="3.5" fill="#B8C2A8" opacity="0.6" transform="rotate(-30 32 56)"/>
+      <ellipse cx="56" cy="62" rx="7" ry="3" fill="#B8C2A8" opacity="0.5" transform="rotate(35 56 62)"/>
+      <g opacity="0.9">
+        <path d="M48 18 Q32 24 32 36 Q32 44 48 44 Q64 44 64 36 Q64 24 48 18 Z" fill="#F5DCDC"/>
+        <path d="M48 22 Q36 28 36 36 Q36 42 48 42 Q60 42 60 36 Q60 28 48 22 Z" fill="#F0CECE"/>
+        <path d="M48 26 Q40 30 40 36 Q40 40 48 40 Q56 40 56 36 Q56 30 48 26 Z" fill="#E8B8B8"/>
+        <path d="M32 30 L34 28 L36 30 L38 27 L40 30 L42 26 L44 30 L46 26 L48 30 L50 26 L52 30 L54 27 L56 30 L58 28 L60 30 L62 28"
+              stroke="#E8B8B8" stroke-width="1" fill="none" opacity="0.7"/>
       </g>
-      <!-- 花心 -->
-      <circle cx="32" cy="25" r="2" fill="#C28A85"/>
-      <!-- 莖 -->
-      <path d="M32 32 L32 56" stroke="#B8C2A8" stroke-width="1.5"/>
+      <circle cx="48" cy="34" r="2.5" fill="#C28A85"/>
+      <path d="M48 44 L48 84" stroke="#B8C2A8" stroke-width="2"/>
     </svg>
-
-    <div class="meta">母親節 ・ 2026</div>
+    <div class="cover-meta">母親節 ・ 2026</div>
     <h1>辣味的比喻</h1>
-    <p class="subtitle">假的故事，真的感受</p>
-    <div class="divider"></div>
-  </header>
+    <p class="cover-sub">假的故事，真的感受</p>
+    <div class="cover-divider"></div>
+  </section>
 
-  <article>
+  <!-- ========== P2 開場 + 媽媽愛辣 ========== -->
+  <section class="paper" data-page="2">
     <p class="opening">我想要講一個故事，這個故事是假的，是我想出來的。<br>大家可以當作是一種比喻，但裡面所有的感受，全都是真的。</p>
 
     <p>大家可以想像有一個媽媽，她人挺好的，就是愛煮辣。</p>
 
     <p>而且這個媽媽其實一輩子只會煮這一種口味。別的口味放到她舌頭上，她真的嚐不出味道。鹽放再多她也覺得淡，清燉的湯她喝一口就皺眉：「這沒味道啊，加點辣吧。」對她來說，「料理」跟「辣」幾乎是同一件事，一道菜不辣，她就不知道那叫什麼了。</p>
+  </section>
 
+  <!-- ========== P3 孩子腸胃 + 吵架 ========== -->
+  <section class="paper" data-page="3">
     <p>還有她的孩子，孩子也算蠻聽話的，但他就是腸胃很脆弱，只要吃到一點點辣，就會拉肚子。</p>
 
     <p>所以從小這個孩子，就一直跟媽媽吵架，常常為了煮辣這件事大吵特吵。他會跟媽媽吼：「你少吃一點麻辣鍋啦！你天天這樣吃，你會食道癌的！」「我吃一口就拉肚子，你還繼續煮，我們家是麻辣鍋店嗎？」</p>
 
     <p>但媽媽也很無奈，媽媽會覺得「我每天工作壓力那麼大，煮個自己愛吃的口味難道不行嗎？你怎麼還這樣管我？你應該要像個孩子啊，你怎麼可以這樣不聽話、這麼挑食、還咒你媽會得癌症呢？」</p>
+  </section>
 
-    <div class="ornament">・ ・ ・</div>
-
+  <!-- ========== P4 孩子明白 + 搬出去 ========== -->
+  <section class="paper" data-page="4">
     <p>直到有一天孩子明白了。每個人都有每個人的人生，每個人都有自己的選擇。是啊，這個媽媽的壓力就是這麼大。外面工作受了氣，回家還要顧一家大小，壓力大就想吃點刺激的東西，辣是她少數能讓自己感覺「還活著」的事情。所以要她不煮辣很簡單，就是幫她解除壓力。那我有辦法幫她解除壓力嗎？有辦法管那麼多嗎？好像也沒辦法。</p>
 
-    <p>所以這個孩子後來選擇：OK，我尊重媽媽愛煮辣。反正辣傷胃你也知道了，你知道就好。我尊重你的選擇，你有你的人生，你有你的路，你有你的壓力，你有你的排解方式，我懂了，我尊重。所以這個孩子不再要求媽媽煮清淡，他尊重這件事情。</p>
+    <p>所以這個孩子後來選擇：OK，我尊重媽媽愛煮辣。我尊重你的選擇，你有你的人生，你有你的路，你有你的壓力，你有你的排解方式，我懂了，我尊重。</p>
 
     <p>但這個孩子吃到辣就會拉肚子。所以他長大之後就搬去外面住了。他只是不想每天吃飯都在跑廁所而已。</p>
+  </section>
 
-    <div class="ornament">・ ・ ・</div>
-
+  <!-- ========== P5 回家吃飯場景 ========== -->
+  <section class="paper" data-page="5">
     <p>那當然，在外面住久了，有時候還是會想回家看一看媽媽好不好。所以他就回去看看媽媽，媽媽看到他當然很開心，很久不見，馬上系上圍裙就要去廚房，「沒關係沒關係，媽媽煮給你吃。」端上桌的是滿滿一桌，麻辣鍋、辣炒高麗菜、麻婆豆腐，就連蛋花湯都飄著一層紅油。</p>
 
-    <p>孩子一開始當然覺得很暖心，「對啊，媽媽真的很愛我，特地為我張羅這一桌。」但他還是吃了。他不忍心拒絕，他怕媽媽傷心，所以他硬著頭皮夾了幾口。然後半小時後，他就在廁所裡了。</p>
+    <p>孩子一開始當然覺得很暖心，「媽媽真的很愛我，特地為我張羅這一桌。」但他還是吃了。他不忍心拒絕，他怕媽媽傷心，所以他硬著頭皮夾了幾口。然後半小時後，他就在廁所裡了。</p>
 
     <p>媽媽一開始還在外面叫：「在裡面幹嘛這麼久？菜都涼了。」後來才意識到怎麼回事。媽媽就會生氣：「你一回家就甩臉色給我看。我特地為你煮的，你進廁所進了半小時是什麼意思？」</p>
+  </section>
 
-    <p>又或者，有的時候媽媽聽說孩子最近期末熬夜讀書，擔心孩子餓，就半夜開車過來，興高采烈地拎著一個保溫鍋要送到孩子宿舍樓下。孩子下樓拿宵夜的時候，媽媽在樓下等著，看到孩子瘦了還眼睛紅紅的，當然就把整鍋遞過去：「快趁熱吃，媽媽剛煮的。」孩子打開蓋子，撲面而來的是一股麻辣香，紅油漂著花椒，是媽媽最拿手的麻辣臭豆腐。</p>
+  <!-- ========== P6 送宵夜場景 ========== -->
+  <section class="paper" data-page="6">
+    <p>又或者，有的時候媽媽聽說孩子最近期末熬夜讀書，擔心孩子餓，就半夜開車過來，興高采烈地拎著一個保溫鍋要送到孩子宿舍樓下。孩子打開蓋子，撲面而來的是一股麻辣香，紅油漂著花椒，是媽媽最拿手的麻辣臭豆腐。</p>
 
-    <p>孩子一開始當然覺得很暖心，「媽媽真的好愛我，大半夜還跑來送宵夜。」但他知道，他要是吃了，等等讀書讀不到兩小時就要拉到天亮。他試著小聲跟媽媽說：「媽，可以下次煮不辣的嗎？我吃了會拉肚子。」</p>
+    <p>孩子試著小聲跟媽媽說：「媽，可以下次煮不辣的嗎？我吃了會拉肚子。」</p>
 
-    <div class="quote-block">
-      <p>媽媽就很生氣：「我特別煮宵夜給你，我擔心你累，我擔心你瘦，我擔心你在熬夜讀書沒體力。我大半夜開車過來，你下來就是這個樣子，一副嫌棄、煩我、不領情的臉。你怎麼可以這麼不孝呢？媽媽煮的你都吃不下，你是覺得媽媽煮的不好吃嗎？」</p>
+    <div class="quote">
+      <p>「我特別煮宵夜給你，我擔心你累，我擔心你瘦，我擔心你在熬夜讀書沒體力。我大半夜開車過來，你下來就是這個樣子，一副嫌棄、煩我、不領情的臉。你怎麼可以這麼不孝呢？」</p>
     </div>
 
-    <p>這孩子也很委屈啊，「我有跟你說謝謝你啊，我就是吃辣會拉嘛，你煮不辣的我就會吃光啦。」</p>
-
     <p>就這樣，又不歡而散了。</p>
+  </section>
 
-    <div class="ornament">・ ・ ・</div>
-
-    <p>這個孩子有錯嗎？孩子沒錯啊，吃辣會拉肚子又不是他故意的。你真要怪，就怪為什麼父母要給他這個腸胃嘛，把他生成吃辣不會拉的不就沒事了嗎？那父母有錯嗎？</p>
-
-    <p>這個媽媽有錯嗎？這個媽媽也沒錯啊，壓力大就煮個自己愛吃的菜嘛。</p>
+  <!-- ========== P7 兩個都沒錯 + 媽媽的童年 ========== -->
+  <section class="paper" data-page="7">
+    <p>這個孩子有錯嗎？孩子沒錯啊，吃辣會拉肚子又不是他故意的。這個媽媽有錯嗎？這個媽媽也沒錯啊，壓力大就煮個自己愛吃的菜嘛。</p>
 
     <p>而且這個媽媽其實心裡頭也很委屈。她從小就是這樣長大的。她的媽媽從不下廚，放學回家沒飯吃是常態，問餓不餓會被嗆「我又不是你的傭人」，生病了沒人煮粥，連白開水都要自己倒。她那個媽媽，連「你今天吃了嗎」這句話，一輩子都沒問過她。</p>
 
-    <p>所以這個媽媽從小就立誓：我絕對不會這樣對我的小孩。我以後一定要每天親手煮飯給孩子吃，我一定要記得問孩子餓不餓，我一定要在孩子熬夜的時候煮宵夜送過去，我要把愛全部都放進飯菜裡。這個媽媽真的都做到了，她每天五點就下班衝去市場，六點半飯一定上桌，孩子半夜讀書她一定不睡，她真的把那份冷漠留在自己這一代，沒有再傳下去。</p>
+    <p>所以這個媽媽從小就立誓：我絕對不會這樣對我的小孩。我以後一定要每天親手煮飯給孩子吃，我一定要記得問孩子餓不餓，我一定要在孩子熬夜的時候煮宵夜送過去，我要把愛全部都放進飯菜裡。</p>
+  </section>
 
-    <p>她以為，孩子一定會超黏她、超愛她。她每天親手煮、每次都記得孩子愛吃什麼、半夜還大老遠送宵夜，孩子應該會以她為驕傲吧？應該會跟同學炫耀「我媽煮飯超好吃」吧？但沒想到，換來的是她每一次端上桌，孩子吃兩口就跑廁所的臉。</p>
+  <!-- ========== P8 媽媽真的做到 + 失望 ========== -->
+  <section class="paper" data-page="8">
+    <p>這個媽媽真的都做到了，她每天五點就下班衝去市場，六點半飯一定上桌，孩子半夜讀書她一定不睡，她真的把那份冷漠留在自己這一代，沒有再傳下去。</p>
 
-    <p>這媽媽超憤怒的，覺得孩子超不孝，覺得自己一輩子的努力都被否定了。</p>
+    <p>她以為，孩子一定會超黏她、超愛她。她每天親手煮、每次都記得孩子愛吃什麼、半夜還大老遠送宵夜，孩子應該會以她為驕傲吧？應該會跟同學炫耀「我媽煮飯超好吃」吧？</p>
 
-    <div class="ornament">・ ・ ・</div>
+    <p>但沒想到，換來的是她每一次端上桌，孩子吃兩口就跑廁所的臉。這媽媽超憤怒的，覺得孩子超不孝，覺得自己一輩子的努力都被否定了。</p>
+  </section>
 
+  <!-- ========== P9 孩子的天賦 ========== -->
+  <section class="paper" data-page="9">
     <p>但她其實不知道，孩子其實並沒有討厭她。聽完媽媽的故事，孩子心裡是非常感謝的。</p>
 
-    <p>這個孩子的腸胃，對辣就是這麼敏感。連帶地，他的味蕾也比一般人敏感，他能吃出一道菜裡的醬油是哪一家，能分辨出鹽放得早還是晚，能在一口湯裡嚐到熬了八小時還是兩小時。他曾經懷疑自己是不是有問題，腸胃太弱、太挑、太麻煩。直到有一天，他發現這就是他的天賦。他對食材的純淨度、層次、火候，有著超越常人的感受力，他其實是一個很厲害的美食品味師。</p>
+    <p>這個孩子的腸胃，對辣就是這麼敏感。連帶地，他的味蕾也比一般人敏感，他能吃出一道菜裡的醬油是哪一家，能分辨出鹽放得早還是晚，能在一口湯裡嚐到熬了八小時還是兩小時。</p>
 
-    <p>所以當媽媽跟他說「你腸胃那麼弱，你是故意的」、「你就是挑食」、「你就是不領情」，他其實是覺得非常難過。除了生理上的不適，心理上也備受打擊。「這明明就是我的天賦啊，為什麼要被你說成是我有毛病、我有問題、我很不孝？我花了好多時間才終於找到我的天賦，為什麼你要否定它？」</p>
+    <p>他曾經懷疑自己是不是有問題，腸胃太弱、太挑、太麻煩。直到有一天，他發現這就是他的天賦。他對食材的純淨度、層次、火候，有著超越常人的感受力，他其實是一個很厲害的美食品味師。</p>
+  </section>
 
-    <p>當然他後來也明白了，媽媽會說那些話，只是因為看到他這個反應很傷心而已。她並沒有真的要否定他的天賦。她都能夠理解。</p>
+  <!-- ========== P10 致媽媽的信 - 上 ========== -->
+  <section class="paper letter-page" data-page="10">
+    <div class="letter-tag">致媽媽</div>
+    <p>媽媽，謝謝你生下我，謝謝你把我養大。也謝謝你天天親手煮飯給我吃，記得我每次回家、記得我考試會餓、記得在我熬夜的時候開車來送宵夜。</p>
 
-    <p>所以他寫了這篇文章，想跟媽媽說：</p>
+    <p>你比你媽好太多了，你很努力讓那份冷漠留在你這裡，沒有再帶給下一代，光憑這一點，我就佩服你，也肯定你。</p>
 
-    <div class="letter">
-      <p>媽媽，謝謝你生下我，謝謝你把我養大。也謝謝你天天親手煮飯給我吃，記得我每次回家、記得我考試會餓、記得在我熬夜的時候開車來送宵夜。你比你媽好太多了，你很努力讓那份冷漠留在你這裡，沒有再帶給下一代，光憑這一點，我就佩服你，也肯定你。</p>
+    <p>但我吃到辣就是會拉，這不是我故意的，這就是我天生的腸胃，甚至這還是我的天賦。我不期待你可以理解這是天賦，我只希望你能明白，我吃辣會拉，我也不是故意的。</p>
+  </section>
 
-      <p>但我吃到辣就是會拉，這不是我故意的，這就是我天生的腸胃，甚至這還是我的天賦。我不期待你可以理解這是天賦，我只希望你能明白，我吃辣會拉，我也不是故意的。</p>
+  <!-- ========== P11 致媽媽的信 - 中 ========== -->
+  <section class="paper letter-page" data-page="11">
+    <div class="letter-tag">致媽媽</div>
+    <p>其實到後來，我連『希望你理解』都放下了。我不期待你能理解我的感受，不期待你吃辣覺得很爽、很過癮，也不期待你理解我會不舒服。</p>
 
-      <p>其實到後來，我連『希望你理解』都放下了。我不期待你能理解我的感受，不期待你吃辣覺得很爽、很過癮，也不期待你理解我會不舒服。</p>
+    <p>我只是祝福你，不要因為看到孩子吃不了你煮的菜，就覺得自己很糟糕、覺得自己不被愛、覺得自己一輩子的努力沒有意義。</p>
 
-      <p>我只是祝福你，不要因為看到孩子吃不了你煮的菜，就覺得自己很糟糕、覺得自己不被愛、覺得自己一輩子的努力沒有意義。</p>
+    <p>我只是希望你能放過自己。我已經放過自己了，我對你沒有任何的期待了。我也沒有失望。我明白我們是不同的個體，有不同的思維、習慣、環境、天賦、選擇，有不同的人生。</p>
+  </section>
 
-      <p>我只是希望你能放過自己。我已經放過自己了，我對你沒有任何的期待了。我也沒有失望。我明白我們是不同的個體，有不同的思維、習慣、環境、天賦、選擇，有不同的人生。所以我不應該期待你可以理解我對辣的感受，因為那是我的感受。</p>
+  <!-- ========== P12 致媽媽的信 - 下 ========== -->
+  <section class="paper letter-page" data-page="12">
+    <div class="letter-tag">致媽媽</div>
+    <p>不要因為孩子吃兩口就跑廁所，你就覺得失望。不要因為孩子婉拒你的麻辣臭豆腐，你就自卑。這只是我的人生而已，這是孩子的反應。</p>
 
-      <p>不要因為孩子吃兩口就跑廁所，你就覺得失望。不要因為孩子婉拒你的麻辣臭豆腐，你就自卑。這只是我的人生而已，這是孩子的反應。</p>
+    <p>學著尊重孩子的腸胃，或者至少放過自己。</p>
 
-      <p>學著尊重孩子的腸胃，或者至少放過自己。</p>
+    <p>你愛煮辣你沒錯，你每天親手煮飯，你很棒。我吃到辣就拉肚子，那是我自己的腸胃。你想吃辣，你可以繼續吃辣，你不要強迫孩子也吃辣就好了。你也不要因為孩子吃不了辣，就覺得自己有多糟、覺得自己不被愛。</p>
+  </section>
 
-      <p>你愛煮辣你沒錯，你每天親手煮飯，你很棒。我吃到辣就拉肚子，那是我自己的腸胃。你想吃辣，你可以繼續吃辣，你不要強迫孩子也吃辣就好了。你也不要因為孩子吃不了辣，就覺得自己有多糟、覺得自己不被愛。</p>
-    </div>
-
-    <p class="closing">沒事，就只是辣味而已。</p>
-  </article>
-
-  <footer class="footer">
-    <div class="signature">— 江昱德</div>
-    <div>母親節快樂 <span class="heart">❀</span> 2026</div>
-  </footer>
+  <!-- ========== P13 結尾金句 ========== -->
+  <section class="paper finale" data-page="13">
+    <svg class="finale-flower" viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg">
+      <g opacity="0.9">
+        <path d="M32 14 Q22 18 22 26 Q22 32 32 32 Q42 32 42 26 Q42 18 32 14 Z" fill="#F5DCDC"/>
+        <path d="M32 16 Q24 20 24 26 Q24 30 32 30 Q40 30 40 26 Q40 20 32 16 Z" fill="#F0CECE"/>
+        <path d="M32 18 Q26 22 26 26 Q26 28 32 28 Q38 28 38 26 Q38 22 32 18 Z" fill="#E8B8B8"/>
+        <path d="M22 22 L24 20 L26 22 L28 19 L30 22 L32 18 L34 22 L36 19 L38 22 L40 20 L42 22"
+              stroke="#E8B8B8" stroke-width="0.8" fill="none" opacity="0.7"/>
+      </g>
+      <circle cx="32" cy="25" r="2" fill="#C28A85"/>
+      <path d="M32 32 L32 56" stroke="#B8C2A8" stroke-width="1.5"/>
+    </svg>
+    <p class="closing">沒事，<br>就只是辣味而已。</p>
+    <div class="blessing">母親節快樂 ・ 2026</div>
+  </section>
 
 </div>
+
+<nav class="nav">
+  <button class="nav-btn" id="prev" aria-label="上一頁">‹</button>
+  <span class="page-indicator" id="indicator">1 / 13</span>
+  <button class="nav-btn" id="next" aria-label="下一頁">›</button>
+</nav>
+
+<script>
+  const papers = document.querySelectorAll('.paper');
+  const total = papers.length;
+  const prevBtn = document.getElementById('prev');
+  const nextBtn = document.getElementById('next');
+  const indicator = document.getElementById('indicator');
+  let current = 0;
+  let animating = false;
+
+  function showPage(idx) {
+    if (idx < 0 || idx >= total || animating) return;
+    if (idx === current) return;
+    animating = true;
+
+    const dir = idx > current ? 'forward' : 'backward';
+    const oldPaper = papers[current];
+    const newPaper = papers[idx];
+
+    if (dir === 'forward') {
+      oldPaper.classList.add('exit-left');
+      oldPaper.classList.remove('active');
+    } else {
+      oldPaper.classList.remove('active', 'exit-left');
+    }
+
+    setTimeout(() => {
+      newPaper.classList.remove('exit-left');
+      newPaper.classList.add('active');
+      newPaper.scrollTop = 0;
+      current = idx;
+      indicator.textContent = `${idx + 1} / ${total}`;
+      prevBtn.disabled = idx === 0;
+      nextBtn.disabled = idx === total - 1;
+      setTimeout(() => { animating = false; }, 550);
+    }, 50);
+  }
+
+  // 初始化
+  papers[0].classList.add('active');
+  prevBtn.disabled = true;
+
+  prevBtn.addEventListener('click', () => showPage(current - 1));
+  nextBtn.addEventListener('click', () => showPage(current + 1));
+
+  // 兩側點擊區
+  document.querySelectorAll('.click-zone').forEach(zone => {
+    zone.addEventListener('click', () => {
+      if (zone.dataset.dir === 'prev') showPage(current - 1);
+      else showPage(current + 1);
+    });
+  });
+
+  // 鍵盤
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+      e.preventDefault(); showPage(current - 1);
+    } else if (e.key === 'ArrowRight' || e.key === 'PageDown' || e.key === ' ') {
+      e.preventDefault(); showPage(current + 1);
+    } else if (e.key === 'Home') {
+      e.preventDefault(); showPage(0);
+    } else if (e.key === 'End') {
+      e.preventDefault(); showPage(total - 1);
+    }
+  });
+
+  // 觸控滑動
+  let touchStartX = 0;
+  let touchStartY = 0;
+  document.addEventListener('touchstart', (e) => {
+    touchStartX = e.touches[0].clientX;
+    touchStartY = e.touches[0].clientY;
+  }, { passive: true });
+
+  document.addEventListener('touchend', (e) => {
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    const dy = e.changedTouches[0].clientY - touchStartY;
+    if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.2) {
+      if (dx < 0) showPage(current + 1);
+      else showPage(current - 1);
+    }
+  }, { passive: true });
+</script>
 
 </body>
 </html>
