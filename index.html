@@ -65,20 +65,28 @@
   }
 
   .hero h1 {
-    font-size: 72px;
+    font-size: 42px;
     font-weight: 600;
     color: var(--rose-deep);
-    letter-spacing: 0.08em;
-    margin-bottom: 24px;
-    line-height: 1.2;
+    letter-spacing: 0.06em;
+    margin-bottom: 28px;
+    line-height: 1.5;
+  }
+
+  .hero h1 .line {
+    display: block;
+  }
+
+  .hero h1 .line + .line {
+    margin-top: 8px;
   }
 
   .hero-sub {
     font-family: 'Cormorant Garamond', 'Noto Serif TC', serif;
     font-style: italic;
-    font-size: 22px;
+    font-size: 20px;
     color: var(--ink-soft);
-    letter-spacing: 0.08em;
+    letter-spacing: 0.05em;
     font-weight: 400;
   }
 
@@ -362,8 +370,9 @@
   @media (max-width: 640px) {
     .container { padding: 0 20px; }
     .hero { padding: 64px 20px 56px; }
-    .hero h1 { font-size: 48px; letter-spacing: 0.05em; }
-    .hero-sub { font-size: 18px; }
+    .hero h1 { font-size: 30px; letter-spacing: 0.04em; line-height: 1.5; }
+    .hero h1 .line + .line { margin-top: 6px; }
+    .hero-sub { font-size: 16px; }
     .hero-flower { width: 72px; height: 72px; }
     .scene { padding: 28px 0; }
     .scene p { font-size: 17px; line-height: 2; }
@@ -412,8 +421,11 @@
     <path d="M48 44 L48 84" stroke="#B8C2A8" stroke-width="2"/>
   </svg>
   <div class="hero-meta">母親節 ・ 2026</div>
-  <h1>辣味的比喻</h1>
-  <div class="hero-sub">假的故事，真的感受</div>
+  <h1>
+    <span class="line">喜歡煮麻辣火鍋的媽媽</span>
+    <span class="line">跟 一吃辣就拉肚子的孩子</span>
+  </h1>
+  <div class="hero-sub">這是假的故事，但裡面的感受，都是真的</div>
   <div class="hero-divider"></div>
 </section>
 
